@@ -557,10 +557,10 @@ This link is the base of the arm in which arm is placed
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="shoulder_pan_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor1">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
@@ -568,10 +568,10 @@ This link is the base of the arm in which arm is placed
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="shoulder_pitch_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor1">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
@@ -579,10 +579,10 @@ This link is the base of the arm in which arm is placed
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="elbow_roll_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor1">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
@@ -590,10 +590,10 @@ This link is the base of the arm in which arm is placed
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="elbow_pitch_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor1">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
@@ -601,10 +601,10 @@ This link is the base of the arm in which arm is placed
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="wrist_roll_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor1">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
@@ -612,17 +612,17 @@ This link is the base of the arm in which arm is placed
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="wrist_pitch_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor1">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
 
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="gripper_finger_joint">
+    <joint name="gripper_roll_joint">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor1">
@@ -630,6 +630,34 @@ This link is the base of the arm in which arm is placed
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+
+
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="finger_joint1">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="finger_joint2">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
 <!--
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
