@@ -257,6 +257,7 @@
   <!-- SENSORS -->
   
   <!-- hokuyo -->
+
   <link name="hokuyo_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -300,6 +301,7 @@
     </sensor>
   </gazebo>
   
+
   <!-- Kinect 
   <link name="kinect_link"/>
   <joint name="kinect_joint" type="fixed">
@@ -334,10 +336,12 @@
 -->
   <!-- Differential drive controller  -->
 
-
+<!--
   <gazebo>
-
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" />
     <plugin name="differential_drive_controller_front" filename="libgazebo_ros_diff_drive.so">
+
+
       <rosDebugLevel>Debug</rosDebugLevel>
       <publishWheelTF>false</publishWheelTF>
       <publishTf>1</publishTf>
@@ -349,19 +353,43 @@
       <wheelSeparation>${2*base_radius}</wheelSeparation>
       <wheelDiameter>${2*wheel_radius}</wheelDiameter>
       <broadcastTF>1</broadcastTF>
-      <wheelTorque>100</wheelTorque>
+      <wheelTorque>30</wheelTorque>
       <wheelAcceleration>1.8</wheelAcceleration>
       <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>map</odometryFrame>
+      <odometryFrame>odom</odometryFrame> 
+      <odometryTopic>odom</odometryTopic> 
+      <robotBaseFrame>base_footprint</robotBaseFrame>
       <odometrySource>world</odometrySource>
 
-      <robotBaseFrame>base_footprint</robotBaseFrame>
+
     </plugin>
   </gazebo> 
 
+-->
+
+
+<!--
+
+	  <gazebo>
+	    <plugin name="kobuki_controller" filename="libgazebo_ros_kobuki.so">
+	      <publish_tf>1</publish_tf>
+	      <left_wheel_joint_name>front_left_wheel_joint</left_wheel_joint_name>
+	      <right_wheel_joint_name>front_right_wheel_joint</right_wheel_joint_name>
+	      <wheel_separation>.30</wheel_separation>
+	      <wheel_diameter>0.08</wheel_diameter>
+	      <torque>30.0</torque>
+	      <velocity_command_timeout>0.6</velocity_command_timeout>
+
+
+	    </plugin>
+	  </gazebo>
+
+-->
+
+
 
 <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" />
     <plugin filename="libgazebo_ros_joint_state_publisher.so" name="joint_state_publisher">
       <jointName>front_left_wheel_joint, front_right_wheel_joint</jointName>
       <updateRate>10.0</updateRate>
@@ -371,6 +399,8 @@
 
   
   <!-- GPS Sensor -->
+
+
   <gazebo>
     <plugin name="novatel_gps_sim" filename="libhector_gazebo_ros_gps.so">
       <alwaysOn>1</alwaysOn>
@@ -384,7 +414,6 @@
       <velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>
     </plugin>
    </gazebo>
-
 
 
 </robot>

@@ -1,7 +1,7 @@
 <launch>
 	<arg name="model" />
 	<!-- Parsing xacro and setting robot_description parameter -->
-	<param name="robot_description" command="$(find xacro)/xacro.py $(find mastering_ros_robot_description_pkg)/urdf/7_dof_arm.xacro" />
+	<param name="robot_description" command="$(find xacro)/xacro.py $(find mastering_ros_robot_description_pkg)/urdf/seven_dof_arm.xacro" />
 	<!-- Setting gui parameter to true for display joint slider -->
 	<param name="use_gui" value="true"/>
 	<!-- Starting Joint state publisher node which will publish the joint values -->
