@@ -5,9 +5,7 @@
 
     <visual>
       <geometry>
-
-<!--	<box size="0.2 0.2 0.01"/> -->
-	<cylinder length="0.01" radius="0.1"/>
+	<cylinder length="0.01" radius="0.2"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="yellow">
@@ -35,11 +33,7 @@
   <link name="first_link">
     <visual>
       <geometry>
-
-<!--	<box size="0.05 .1 .15"/> -->
 	<cylinder length="0.2" radius="0.04"/>
-
-
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.01"/>
       <material name="red">
@@ -57,7 +51,7 @@
   <joint name="joint_2" type="revolute">
     <parent link="first_link"/>
     <child link="second_link"/>
-    <origin xyz="0.01 -0.04 0.06"/>
+    <origin xyz="0 -0.04 0.06"/>
     <axis xyz="0 1 0" />
     <limit effort="300" velocity="0.1" lower="-4.64" upper="-1.5"/>
     <dynamics damping="50" friction="1"/>
@@ -66,9 +60,7 @@
   <link name="second_link">
     <visual>
       <geometry>
-<!--	<box size="0.1 .1 .04"/>  -->
 	<cylinder length="0.2" radius="0.04"/>
-
       </geometry>
       <origin rpy="0 1.5 0" xyz="0 0 0"/>
       <material name="green">
