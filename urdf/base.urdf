@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<robot name="demo_robot">
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+	<box size="0.1 .1 .1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+
+      <material name="yellow">
+        <color rgba="1 1 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+	<box size="0.1 .1 .1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+    </collision>
+  </link>
+
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child link="first_link"/>
+    <origin xyz="0 0 .1"/>
+    <axis xyz="0 0 1" />
+    <limit effort="300" velocity="0.1" lower="-5" upper="6"/>
+    <dynamics damping="50" friction="1"/>
+  </joint>
+
+  <link name="first_link">
+    <visual>
+      <geometry>
+	<box size="0.1 .1 .1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+      <material name="red">
+        <color rgba="1 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+	<box size="0.1 .1 .1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+    </collision>
+  </link>
+
+  <joint name="joint_2" type="revolute">
+    <parent link="first_link"/>
+    <child link="second_link"/>
+    <origin xyz="0 0 .1"/>
+    <axis xyz="0 0 1" />
+    <limit effort="300" velocity="0.1" lower="-5" upper="6"/>
+    <dynamics damping="50" friction="1"/>
+
+  </joint>
+
+  <link name="second_link">
+    <visual>
+      <geometry>
+	<box size="0.1 .1 .1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+      <material name="green">
+        <color rgba="0.8 0 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+	<box size="0.1 .1 .1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+    </collision>
+  </link>
+
+
+</robot>
