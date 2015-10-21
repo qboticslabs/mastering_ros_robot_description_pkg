@@ -486,8 +486,6 @@ This link is the base of the arm in which arm is placed
 
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
 
   <!-- LEFT GRIPPER AFT LINK -->
   <link name="gripper_finger_link1">
@@ -505,7 +503,7 @@ This link is the base of the arm in which arm is placed
            <box size="${left_gripper_len} ${left_gripper_width} ${left_gripper_height}" />
 
       </geometry>
-      <material name="Black" />
+      <material name="White" />
     </visual>
 
   </link>
