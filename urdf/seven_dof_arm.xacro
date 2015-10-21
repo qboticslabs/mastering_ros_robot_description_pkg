@@ -82,6 +82,27 @@
   <property name="grasp_frame_height" value="0.02" />
 
 
+   <xacro:macro name="inertial_matrix" params="mass">
+      <inertial>
+      	<mass value="${mass}" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="1.0" />
+      </inertial>
+   </xacro:macro>
+
+   <xacro:macro name="transmission_block" params="joint_name">
+	  <transmission name="tran1">
+	    <type>transmission_interface/SimpleTransmission</type>
+	    <joint name="${joint_name}">
+	      <hardwareInterface>PositionJointInterface</hardwareInterface>
+	    </joint>
+	    <actuator name="motor1">
+	      <hardwareInterface>PositionJointInterface</hardwareInterface>
+	      <mechanicalReduction>1</mechanicalReduction>
+	    </actuator>
+	  </transmission>
+   </xacro:macro>
+
+
 <!-- BOTTOM FIXED LINK 
 This link is the base of the arm in which arm is placed 
 
@@ -97,13 +118,6 @@ This link is the base of the arm in which arm is placed
 
   <link name="bottom_link">
 
-<!--    <inertial>
-      <origin xyz=" 0 0 -0.017"/>
-      <mass value="100.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
--->
     <visual>
       <origin xyz=" 0 0 -0.04"  rpy="0 0 0"/>
       <geometry>
@@ -133,14 +147,6 @@ This link is the base of the arm in which arm is placed
   <!-- BASE LINK -->
   <link name="base_link">
 
-
-
-    <inertial>
-        <origin xyz="0 0 0" />
-        <mass value="1.0" />
-        <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-        </inertial>
-
     <visual>
       <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" /> <!-- rotate PI/2 -->
       <geometry>
@@ -159,6 +165,7 @@ This link is the base of the arm in which arm is placed
 		
       </geometry>
       </collision>>
+	<xacro:inertial_matrix mass="1"/>
 
   </link>
 
@@ -181,12 +188,6 @@ This link is the base of the arm in which arm is placed
   <!-- SHOULDER PAN LINK -->
   <link name="shoulder_pan_link" >
 
-    <inertial>
-      <origin xyz="0 0 0" />
-      <mass value="1.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
     <visual>
       <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
       <geometry>
@@ -203,6 +204,7 @@ This link is the base of the arm in which arm is placed
             <cylinder radius="${shoulder_pan_width}" length="${shoulder_pan_len}"/>
       </geometry>
     </collision>
+	<xacro:inertial_matrix mass="1"/>
   </link>
 
   <gazebo reference="shoulder_pan_link">
@@ -222,12 +224,6 @@ This link is the base of the arm in which arm is placed
   <!-- SHOULDER PITCH LINK -->
   <link name="shoulder_pitch_link" >
 
-    <inertial>
-      <origin xyz="-0.002 0 -0.000"  />
-      <mass value="1.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
     <visual>
       <origin xyz="-0.002 0 0.04" rpy="0 ${M_PI/2} 0" />
       <geometry>
@@ -244,7 +240,7 @@ This link is the base of the arm in which arm is placed
            <box size="${shoulder_pitch_len} ${shoulder_pitch_width} ${shoulder_pitch_height}" />
       </geometry>
     </collision>
-
+	<xacro:inertial_matrix mass="1"/>
   </link>
 
   <gazebo reference="shoulder_pitch_link">
@@ -264,12 +260,6 @@ This link is the base of the arm in which arm is placed
   <!-- ELBOW ROLL LINK -->
   <link name="elbow_roll_link" >
 
-    <inertial>
-      <origin xyz="-0.035 0.0 0.0"  />
-      <mass value="1.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
     <visual>
       <origin xyz="-0.015 0.0 -0.0" rpy="0 ${M_PI/2} 0" />
       <geometry>
@@ -286,7 +276,7 @@ This link is the base of the arm in which arm is placed
             <cylinder radius="${elbow_roll_width}" length="${elbow_roll_len}"/>
       </geometry>
     </collision>
-
+	<xacro:inertial_matrix mass="1"/>
   </link>
 
   <gazebo reference="elbow_roll_link">
@@ -307,12 +297,6 @@ This link is the base of the arm in which arm is placed
   <!-- ELBOW PITCH LINK -->
   <link name="elbow_pitch_link" >
 
-    <inertial>
-      <origin xyz="0.0 0 0"  />
-      <mass value="1.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
     <visual>
       <origin xyz="0 0 -0.12" rpy="0 ${M_PI/2} 0" />
       <geometry>
@@ -329,7 +313,7 @@ This link is the base of the arm in which arm is placed
        <box size="${elbow_pitch_len} ${elbow_pitch_width} ${elbow_pitch_height}" />
       </geometry>
     </collision>
-
+	<xacro:inertial_matrix mass="1"/>
   </link>
 
   <gazebo reference="elbow_pitch_link">
@@ -347,13 +331,6 @@ This link is the base of the arm in which arm is placed
 
   <!-- WRIST ROLL LINK -->
   <link name="wrist_roll_link" >
-
-    <inertial>
-      <origin xyz="0 0 0"  />
-      <mass value="1.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
     <visual>
       <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
       <geometry>
@@ -370,6 +347,7 @@ This link is the base of the arm in which arm is placed
            <cylinder radius="${elbow_roll_width}" length="${elbow_roll_len}"/>
       </geometry>
     </collision>
+	<xacro:inertial_matrix mass="1"/>
 
   </link>
 
@@ -391,12 +369,6 @@ This link is the base of the arm in which arm is placed
   <!-- WRIST PITCH LINK -->
   <link name="wrist_pitch_link">
 
-    <inertial>
-      <origin xyz="0 0 0"  />
-      <mass value="1.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
     <visual>
       <origin xyz="0 0 0.04" rpy="0 ${M_PI/2} 0" />
       <geometry>
@@ -413,6 +385,7 @@ This link is the base of the arm in which arm is placed
           <box size="${wrist_pitch_len} ${wrist_pitch_width} ${wrist_pitch_height}" />
       </geometry>
     </collision>
+	<xacro:inertial_matrix mass="1"/>
 
   </link>
 
@@ -434,12 +407,6 @@ This link is the base of the arm in which arm is placed
   <!-- GRIPPER ROLL LINK -->
   <link name="gripper_roll_link">
 
-    <inertial>
-      <origin xyz="0 0 0" />
-      <mass value="1.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
     <visual>
       <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
       <geometry>
@@ -456,6 +423,7 @@ This link is the base of the arm in which arm is placed
             <cylinder radius="${gripper_roll_width}" length="${gripper_roll_len}"/>
       </geometry>
     </collision>
+	<xacro:inertial_matrix mass="1"/>
 
   </link>
 
@@ -490,13 +458,7 @@ This link is the base of the arm in which arm is placed
   <!-- LEFT GRIPPER AFT LINK -->
   <link name="gripper_finger_link1">
 
-    <inertial>
-      <origin xyz="0 0 0"  />
-      <mass value="0.01" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
-    <visual>
+     <visual>
       <origin xyz="0.04 -0.03 0"/>
       <geometry>
 
@@ -505,7 +467,7 @@ This link is the base of the arm in which arm is placed
       </geometry>
       <material name="White" />
     </visual>
-
+	<xacro:inertial_matrix mass="1"/>
   </link>
 
   <gazebo reference="l_gripper_aft_link">
@@ -532,13 +494,6 @@ This link is the base of the arm in which arm is placed
 
 
   <link name="gripper_finger_link2">
-
-    <inertial>
-      <origin xyz="0.0 0.0 0"  />
-      <mass value="1.0" />
-      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
-    </inertial>
-
     <visual>
       <origin xyz="0.04 0.03 0"/>
       <geometry>
@@ -549,7 +504,7 @@ This link is the base of the arm in which arm is placed
       </geometry>
       <material name="White" />
     </visual>
-
+	<xacro:inertial_matrix mass="1"/>
   </link>
 
   <gazebo reference="r_gripper_aft_link">
@@ -595,104 +550,16 @@ This link is the base of the arm in which arm is placed
 
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
   <!-- Transmissions for ROS Control -->
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="shoulder_pan_joint">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
 
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="shoulder_pitch_joint">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="elbow_roll_joint">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="elbow_pitch_joint">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wrist_roll_joint">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wrist_pitch_joint">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="gripper_roll_joint">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="finger_joint1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="finger_joint2">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
+   <xacro:transmission_block joint_name="shoulder_pan_joint"/>
+   <xacro:transmission_block joint_name="shoulder_pitch_joint"/>
+   <xacro:transmission_block joint_name="elbow_roll_joint"/>
+   <xacro:transmission_block joint_name="elbow_pitch_joint"/>
+   <xacro:transmission_block joint_name="wrist_roll_joint"/>
+   <xacro:transmission_block joint_name="wrist_pitch_joint"/>
+   <xacro:transmission_block joint_name="gripper_roll_joint"/>
+   <xacro:transmission_block joint_name="finger_joint1"/>
+   <xacro:transmission_block joint_name="finger_joint2"/>
 
 
 
