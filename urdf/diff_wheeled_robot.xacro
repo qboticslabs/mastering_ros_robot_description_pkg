@@ -57,8 +57,7 @@
 
 
   <!-- Wheels -->
-<!--  <property name="wheel_radius" value="0.2" /> 
-  <property name="wheel_height" value="0.1" />
+
   <property name="wheel_mass" value="2.5" /> --> <!-- in kg-->
   
   <property name="base_x_origin_to_wheel_origin" value="0.25" />
@@ -143,9 +142,6 @@
   </gazebo>
   
 
-  <wheel fb="front" lr="right" parent="base_link" translateX="0" translateY="-0.5" flipY="-1"/>
-  <wheel fb="front" lr="left" parent="base_link" translateX="0" translateY="0.5" flipY="-1"/>
-
 
 
 
@@ -156,15 +152,7 @@
     <visual>
       <origin xyz="0 0.02 0" rpy="${M_PI/2} 0 0" />
       <geometry>
-
-<!--       <mesh filename="package://mastering_ros_robot_description_pkg/meshes/caster_wheel.stl"/> -->
-
-<!--        <cylinder length="${caster_f_height}" radius="${caster_f_radius}" />  -->
-
 	<sphere radius="${caster_f_radius}" />
-
-
-
       </geometry>
       <material name="Black" />
     </visual>  
@@ -197,7 +185,6 @@
     </joint>
 
 
-
   <gazebo reference="caster_front_link">
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
@@ -212,10 +199,10 @@
       <origin xyz="0.02 0.02 0 " rpy="${M_PI/2} 0 0" /> 
 
       <geometry>
-<!--          <cylinder length="${caster_b_height}" radius="${caster_b_radius}" />   -->
+
 
 	<sphere radius="${caster_b_radius}" />
-<!--       <mesh filename="package://mastering_ros_robot_description_pkg/meshes/caster_wheel.stl"/>  -->
+
 
       </geometry>
       <material name="Black" />
@@ -245,15 +232,16 @@
     </joint>
 
 
-
-
   <gazebo reference="caster_back_link">
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
 
 
-	
- 
+<!-- Wheel Definitions -->
+
+  <wheel fb="front" lr="right" parent="base_link" translateX="0" translateY="0.5" flipY="1"/>
+  <wheel fb="front" lr="left" parent="base_link" translateX="0" translateY="-0.5" flipY="1"/>
+	 
   <!-- SENSORS -->
   
   <!-- hokuyo -->
@@ -301,51 +289,16 @@
     </sensor>
   </gazebo>
   
-
-  <!-- Kinect 
-  <link name="kinect_link"/>
-  <joint name="kinect_joint" type="fixed">
-    <origin xyz="0.5 0 -0.1" rpy="0 0 0" />
-    <parent link="base_link"/>
-    <child link="kinect_link" />
-  </joint>
-  <sensor_kinect  parent="kinect_link"/> -->
-
   
-  <!-- DRIVE CONTROLLERS -->
-
-  <!-- Skid steer drive controller -->
-<!--
-  <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" />
-    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-      <alwaysOn>1</alwaysOn>
-      <updateRate>100.0</updateRate>
-      <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
-      <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
-      <wheelSeparation>${base_height}</wheelSeparation>
-      <wheelDiameter>${2*wheel_radius}</wheelDiameter>
-      <torque>100</torque>
-      <broadcastTF>1</broadcastTF>
-      <odometryFrame>map</odometryFrame>
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <robotBaseFrame>base_footprint</robotBaseFrame>
-    </plugin>
-  </gazebo> 
--->
   <!-- Differential drive controller  -->
-
-<!--
   <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" />
-    <plugin name="differential_drive_controller_front" filename="libgazebo_ros_diff_drive.so">
-
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
 
       <rosDebugLevel>Debug</rosDebugLevel>
       <publishWheelTF>false</publishWheelTF>
+      <robotNamespace>/</robotNamespace>
       <publishTf>1</publishTf>
-      <publishWheelJointState>true</publishWheelJointState>
+      <publishWheelJointState>false</publishWheelJointState>
       <alwaysOn>true</alwaysOn>
       <updateRate>100.0</updateRate>
       <leftJoint>front_left_wheel_joint</leftJoint>
@@ -359,61 +312,12 @@
       <odometryFrame>odom</odometryFrame> 
       <odometryTopic>odom</odometryTopic> 
       <robotBaseFrame>base_footprint</robotBaseFrame>
-      <odometrySource>world</odometrySource>
 
 
     </plugin>
   </gazebo> 
 
--->
 
-
-<!--
-
-	  <gazebo>
-	    <plugin name="kobuki_controller" filename="libgazebo_ros_kobuki.so">
-	      <publish_tf>1</publish_tf>
-	      <left_wheel_joint_name>front_left_wheel_joint</left_wheel_joint_name>
-	      <right_wheel_joint_name>front_right_wheel_joint</right_wheel_joint_name>
-	      <wheel_separation>.30</wheel_separation>
-	      <wheel_diameter>0.08</wheel_diameter>
-	      <torque>30.0</torque>
-	      <velocity_command_timeout>0.6</velocity_command_timeout>
-
-
-	    </plugin>
-	  </gazebo>
-
--->
-
-
-
-<gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" />
-    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="joint_state_publisher">
-      <jointName>front_left_wheel_joint, front_right_wheel_joint</jointName>
-      <updateRate>10.0</updateRate>
-      <alwaysOn>true</alwaysOn>
-    </plugin>
-</gazebo>
-
-  
-  <!-- GPS Sensor -->
-
-
-  <gazebo>
-    <plugin name="novatel_gps_sim" filename="libhector_gazebo_ros_gps.so">
-      <alwaysOn>1</alwaysOn>
-      <updateRate>10.0</updateRate>
-      <bodyName>base_footprint</bodyName>
-      <topicName>fix</topicName>
-      <velocityTopicName>fix_velocity</velocityTopicName>
-      <drift>5.0 5.0 5.0</drift>
-      <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
-      <velocityDrift>0 0 0</velocityDrift>
-      <velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>
-    </plugin>
-   </gazebo>
 
 
 </robot>
